@@ -184,6 +184,10 @@
   <footer class="footer">
     <div class="container">
       <p>© 2026 The Happy Tiffin. All rights reserved.</p>
+      <p style="margin-top: 10px; font-size: 0.85rem;">
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </p>
     </div>
   </footer>
 
@@ -202,6 +206,40 @@
         }
       });
     }
+
+    // 2026 Funnel Superpower: UTM forwarding & lead prefill links updater
+    (function() {
+      const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'fbclid', 'gclid'];
+      const cachedUtms = {};
+      utmKeys.forEach(key => {
+        const val = sessionStorage.getItem(key);
+        if (val) cachedUtms[key] = val;
+      });
+
+      const buttons = document.querySelectorAll('a');
+      buttons.forEach(btn => {
+        let href = btn.getAttribute('href') || "";
+        if (href.includes("superprofile.bio")) {
+          try {
+            const urlObj = new URL(href);
+            Object.keys(cachedUtms).forEach(key => {
+              urlObj.searchParams.set(key, cachedUtms[key]);
+            });
+            const savedLead = localStorage.getItem('funnel_lead');
+            if (savedLead) {
+              const lead = JSON.parse(savedLead);
+              if (lead.name) urlObj.searchParams.set('name', lead.name);
+              if (lead.email) urlObj.searchParams.set('email', lead.email);
+              if (lead.phone) {
+                urlObj.searchParams.set('phone', lead.phone);
+                urlObj.searchParams.set('mobile', lead.phone);
+              }
+            }
+            btn.setAttribute('href', urlObj.toString());
+          } catch(e) {}
+        }
+      });
+    })();
 
     // Real session-based countdown (14:59 from page load)
     (function(){

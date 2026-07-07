@@ -235,10 +235,17 @@ h1, h2, h3, h4 {
 .trust-row {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
   font-size: 0.75rem;
   color: var(--text-muted);
   margin-top: 12px;
   font-weight: 500;
+}
+@media (max-width: 480px) {
+  .trust-row {
+    justify-content: center;
+  }
 }
 
 .hero-media {
@@ -1632,3 +1639,347 @@ h1, h2, h3, h4 {
   color: var(--secondary);
   font-weight: 800;
 }
+
+/* =========================================================================
+   2026 FUNNEL SUPERPOWERS: SOCIAL PROOF, WHATSAPP & SCRATCH CARD
+   ========================================================================= */
+
+/* --- Social Proof Glassmorphic Toast --- */
+.social-proof-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(45, 36, 30, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 99999;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+  max-width: 320px;
+}
+.social-proof-toast.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+.social-proof-icon {
+  font-size: 1.5rem;
+  background: rgba(255, 112, 32, 0.1);
+  padding: 6px;
+  border-radius: 50%;
+  line-height: 1;
+  display: inline-block;
+}
+.social-proof-text {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+.social-proof-text strong {
+  font-weight: 700;
+  color: var(--primary);
+}
+.social-proof-time {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+/* --- WhatsApp Direct Ordering Button --- */
+.wa-order-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  margin: 15px auto 0 auto;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  max-width: 380px;
+}
+.wa-order-btn:hover {
+  background: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+  color: white;
+}
+
+/* --- Interactive Scratch Card Container --- */
+.scratch-card-container {
+  position: relative;
+  width: 280px;
+  height: 140px;
+  margin: 15px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  background: #FFF9F3;
+  border: 2.5px dashed var(--primary);
+}
+.scratch-card-underlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+.scratch-card-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  z-index: 2;
+  touch-action: none;
+}
+
+/* --- Modern Floating Animations --- */
+.float-element {
+  animation: elementFloat 4s ease-in-out infinite;
+}
+@keyframes elementFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+
+/* =========================================================================
+   2026 FUNNEL SUPERPOWERS: VEGGIE DEFICIT CALCULATOR & GSAP REVEALS
+   ========================================================================= */
+
+.calculator-section {
+  padding: 85px 0;
+  background: white;
+  border-top: 1.5px solid var(--border-subtle);
+  border-bottom: 1.5px solid var(--border-subtle);
+}
+
+.calculator-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 45px;
+  background: #FFFDF9;
+  border: 1.5px solid rgba(255, 112, 32, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 45px;
+  box-shadow: 0 15px 40px rgba(255, 112, 32, 0.04);
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .calculator-container {
+    grid-template-columns: 1fr;
+    padding: 30px 20px;
+    gap: 35px;
+  }
+}
+
+.calculator-title {
+  font-size: 1.95rem;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.calculator-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.calc-group {
+  margin-bottom: 22px;
+}
+
+.calc-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.calc-select {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-subtle);
+  background: white;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  outline: none;
+  font-family: var(--font-body);
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.calc-select:focus {
+  border-color: var(--primary);
+}
+
+.veggie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+.veggie-item {
+  position: relative;
+}
+
+.veggie-item input {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+
+.veggie-item label {
+  display: block;
+  padding: 10px 8px;
+  background: white;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  user-select: none;
+  color: var(--text-secondary);
+}
+
+.veggie-item input:checked + label {
+  background: rgba(255, 112, 32, 0.06);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(255, 112, 32, 0.08);
+}
+
+/* Results panel styles */
+.calc-results-panel {
+  background: white;
+  border: 1.5px solid rgba(255, 112, 32, 0.1);
+  border-radius: var(--radius-md);
+  padding: 35px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(45, 36, 30, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gauge-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 20px;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.gauge-bg {
+  fill: none;
+  stroke: #F1ECE3;
+  stroke-width: 8px;
+}
+
+.gauge-fill {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 8px;
+  stroke-linecap: round;
+  stroke-dasharray: 251.2;
+  stroke-dashoffset: 251.2;
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+
+.gauge-label {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  color: var(--text-primary);
+}
+
+.result-status {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #EF5350;
+  font-family: var(--font-heading);
+}
+
+.result-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 25px;
+  min-height: 52px;
+}
+
+/* GSAP Pre-Animation states to prevent layout shifts */
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  will-change: transform, opacity;
+}
+
+/* Shift Social Proof Toast up on mobile to avoid overlapping the sticky bar */
+@media (max-width: 767px) {
+  .social-proof-toast {
+    bottom: 95px !important;
+    left: 15px !important;
+    right: 15px !important;
+    max-width: calc(100% - 30px) !important;
+    padding: 10px 14px !important;
+  }
+  .social-proof-icon {
+    font-size: 1.3rem !important;
+    padding: 5px !important;
+  }
+  .social-proof-text {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Fallback for disabled Javascript or Slow GSAP Load */
+.no-js .gsap-reveal,
+noscript .gsap-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+
