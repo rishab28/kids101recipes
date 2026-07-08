@@ -1509,13 +1509,21 @@
     lastSunday.setDate(today.getDate() - daysSinceSunday);
     const dateString = lastSunday.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' });
     const seed = lastSunday.getFullYear() * 10000 + (lastSunday.getMonth() + 1) * 100 + lastSunday.getDate();
+    
+    // Globally matched winners & prizes structure
     const winners = [
-      'Sunita S. (Delhi)', 'Priya P. (Jaipur)', 'Neha V. (Pune)',
-      'Divya K. (Mumbai)', 'Anita R. (Bangalore)', 'Meena G. (Hyderabad)', 'Rekha S. (Lucknow)'
+      { name: "Karan Johar (Mumbai)", prize: "₹5,000 Cash" },
+      { name: "Sunita Sharma (Delhi)", prize: "₹5,000 Cash" },
+      { name: "Rahul Verma (Bengaluru)", prize: "₹5,000 Cash" },
+      { name: "Priya Patel (Ahmedabad)", prize: "₹5,000 Cash" },
+      { name: "Amit Singh (Lucknow)", prize: "₹5,000 Cash" },
+      { name: "Neha Gupta (Jaipur)", prize: "₹5,000 Cash" },
+      { name: "Sanjay Reddy (Hyderabad)", prize: "₹5,000 Cash" }
     ];
-    const prizes = ['AGARO Air Fryer', 'NutriBullet Blender', 'Premium Bento Set', '₹5,000 Cash'];
-    const winner = winners[seed % winners.length];
-    const prize = prizes[seed % prizes.length];
+    
+    const index = seed % winners.length;
+    const winner = winners[index].name;
+    const prize = winners[index].prize;
     
     const promoText = `Last winner (${dateString}): <strong>${winner} chose ${prize}!</strong> 🎉`;
     if (el1) el1.innerHTML = promoText;
