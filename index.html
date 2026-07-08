@@ -882,33 +882,22 @@
   <!-- ==================== LOTTERY BANNER ABOVE PRICING ==================== -->
   <section style="padding: 30px 0 0; background: #FFFDF8;">
     <div class="container narrow">
-      <div style="
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(255, 112, 32, 0.08) 100%);
-        border: 2px solid rgba(245, 158, 11, 0.5);
-        border-radius: 16px;
-        padding: 22px 28px;
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        box-shadow: 0 8px 32px rgba(245, 158, 11, 0.12);
-        position: relative;
-        overflow: hidden;
-      ">
+      <div class="lottery-banner">
         <!-- Glow accent -->
-        <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(245,158,11,0.18) 0%,transparent 70%);pointer-events:none;"></div>
-        <div style="font-size: 3rem; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15)); flex-shrink:0;">&#127808;</div>
-        <div style="flex: 1;">
-          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px;">
-            <h4 style="color: #92400e; font-size: 1.05rem; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">&#127381; Weekly Lucky Draw &mdash; Abhi Active Hai!</h4>
-            <span style="font-size: 0.7rem; background: #e53935; color: #fff; padding: 3px 10px; border-radius: 20px; font-weight: 900; animation: blink 1.2s infinite; text-transform: uppercase;">LIVE DRAW</span>
+        <div class="lottery-glow"></div>
+        <div class="lottery-emoji">&#127808;</div>
+        <div class="lottery-info">
+          <div class="lottery-header-row">
+            <h4 class="lottery-title">&#127381; Weekly Lucky Draw &mdash; Abhi Active Hai!</h4>
+            <span class="lottery-live-badge">LIVE DRAW</span>
           </div>
-          <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.5;">
+          <p class="lottery-desc">
             <strong>Aaj ka order = 1 Free Entry!</strong> Iss week win karo: <strong>1) AGARO Multi Air Fryer &nbsp;&#124;&nbsp; 2) NutriBullet Blender &nbsp;&#124;&nbsp; 3) Premium Bento Box Set &nbsp;&#124;&nbsp; 4) &#8377;5,000 Cash</strong> &mdash; <span id="pricing-winner-promo" style="color: var(--text-dark); font-weight: 700;">Loading...</span>
           </p>
         </div>
-        <div style="text-align:center; flex-shrink:0;">
-          <div style="font-size: 1.5rem; font-weight: 900; color: #b45309; font-family: var(--font-heading); line-height: 1;">FREE</div>
-          <div style="font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">With Purchase</div>
+        <div class="lottery-badge-box">
+          <div class="lottery-badge-free">FREE</div>
+          <div class="lottery-badge-sub">With Purchase</div>
         </div>
       </div>
     </div>
@@ -1505,8 +1494,8 @@
 
   // Also populate the pricing section winner promo
   (function() {
-    const el = document.getElementById('pricing-winner-promo');
-    if (!el) return;
+    const el1 = document.getElementById('pricing-winner-promo');
+    const el2 = document.getElementById('index-winner-promo');
     const today = new Date();
     const currentDay = today.getDay();
     const daysSinceSunday = currentDay === 0 ? 7 : currentDay;
@@ -1521,7 +1510,10 @@
     const prizes = ['AGARO Air Fryer', 'NutriBullet Blender', 'Premium Bento Set', '₹5,000 Cash'];
     const winner = winners[seed % winners.length];
     const prize = prizes[seed % prizes.length];
-    el.innerHTML = `Last winner (${dateString}): <strong>${winner} chose ${prize}!</strong> 🎉`;
+    
+    const promoText = `Last winner (${dateString}): <strong>${winner} chose ${prize}!</strong> 🎉`;
+    if (el1) el1.innerHTML = promoText;
+    if (el2) el2.innerHTML = `— ${promoText}`;
   })();
 
   // Load animation triggers

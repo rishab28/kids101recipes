@@ -735,6 +735,115 @@ h1, h2, h3, h4 {
   margin-top: 14px;
 }
 
+/* --- 12.5 Lottery Banner Component --- */
+.lottery-banner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(255, 112, 32, 0.08) 100%);
+  border: 2px solid rgba(245, 158, 11, 0.5);
+  border-radius: 16px;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+.lottery-glow {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.lottery-emoji {
+  font-size: 3rem;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+  flex-shrink: 0;
+}
+.lottery-info {
+  flex: 1;
+}
+.lottery-header-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.lottery-title {
+  color: #92400e;
+  font-size: 1.05rem;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lottery-live-badge {
+  font-size: 0.7rem;
+  background: #e53935;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 900;
+  animation: blink 1.2s infinite;
+  text-transform: uppercase;
+}
+.lottery-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+.lottery-badge-box {
+  text-align: center;
+  flex-shrink: 0;
+}
+.lottery-badge-free {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #b45309;
+  font-family: var(--font-heading);
+  line-height: 1;
+}
+.lottery-badge-sub {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 767px) {
+  .lottery-banner {
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+    gap: 12px;
+  }
+  .lottery-emoji {
+    font-size: 2.5rem;
+  }
+  .lottery-header-row {
+    justify-content: center;
+    gap: 6px;
+  }
+  .lottery-title {
+    font-size: 0.95rem;
+    width: 100%;
+  }
+  .lottery-desc {
+    font-size: 0.82rem;
+  }
+  .lottery-badge-box {
+    margin-top: 5px;
+    border-top: 1px dashed rgba(245, 158, 11, 0.3);
+    padding-top: 10px;
+    width: 100%;
+  }
+}
+
 /* --- 13. FAQ Accordion --- */
 .faq-section {
   padding: 100px 0;
