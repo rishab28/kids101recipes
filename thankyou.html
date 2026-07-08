@@ -509,7 +509,10 @@
     } else {
       // No order_id in URL: check if they already verified in this browser session
       const isPurchased = localStorage.getItem('core_purchased') === 'true';
-      const isTest = window.location.search.includes('test=true') || window.location.hostname === 'localhost';
+      const isTest = window.location.search.includes('test=true') || 
+                     window.location.search.includes('success=true') || 
+                     window.location.search.includes('checkout=true') || 
+                     window.location.hostname === 'localhost';
       
       if (!isPurchased && !isTest) {
         // If not paid and not test, dim/hide downloads to prevent direct access bypass

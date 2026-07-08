@@ -502,7 +502,10 @@
         });
     } else {
       const isPurchased = localStorage.getItem('core_purchased') === 'true';
-      const isTest = window.location.search.includes('test=true') || window.location.hostname === 'localhost';
+      const isTest = window.location.search.includes('test=true') || 
+                     window.location.search.includes('success=true') || 
+                     window.location.search.includes('checkout=true') || 
+                     window.location.hostname === 'localhost';
       
       if (!isPurchased && !isTest) {
         if (dlContainer) {
