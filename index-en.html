@@ -1456,20 +1456,16 @@
     const dateString = lastSunday.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' });
     const seed = lastSunday.getFullYear() * 10000 + (lastSunday.getMonth() + 1) * 100 + lastSunday.getDate();
     
-    // Globally matched winners & prizes structure
+    // Globally matched winners — same prize everywhere
     const winners = [
-      { name: "Karan Johar (Mumbai)", prize: "₹5,000 Cash" },
-      { name: "Sunita Sharma (Delhi)", prize: "₹5,000 Cash" },
-      { name: "Rahul Verma (Bengaluru)", prize: "₹5,000 Cash" },
-      { name: "Priya Patel (Ahmedabad)", prize: "₹5,000 Cash" },
-      { name: "Amit Singh (Lucknow)", prize: "₹5,000 Cash" },
-      { name: "Neha Gupta (Jaipur)", prize: "₹5,000 Cash" },
-      { name: "Sanjay Reddy (Hyderabad)", prize: "₹5,000 Cash" }
+      "Karan Johar (Mumbai)", "Sunita Sharma (Delhi)", "Rahul Verma (Bengaluru)",
+      "Priya Patel (Ahmedabad)", "Amit Singh (Lucknow)", "Neha Gupta (Jaipur)",
+      "Sanjay Reddy (Hyderabad)"
     ];
+    const PRIZE = "NutriBullet Blender";
     
-    const index = seed % winners.length;
-    const winner = winners[index].name;
-    const prize = winners[index].prize;
+    const winner = winners[seed % winners.length];
+    const prize = PRIZE;
     
     const promoText = `Last winner (${dateString}): <strong>${winner} chose ${prize}!</strong> 🎉`;
     if (el1) el1.innerHTML = promoText;
