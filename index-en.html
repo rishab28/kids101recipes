@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Happy Tiffin System | 101 Picky-Eater Approved Indian Recipes</title>
   <!-- Cashfree JS SDK v3 -->
-  <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+  <script src="https://sdk.cashfree.com/js/v3/cashfree.js" defer></script>
   <meta name="description" content="Tired of school tiffins coming back full? Discover the 5-Minute Tiffin Trick that helps picky eaters enjoy healthy Indian food. Rs. 499 only." />
 
   <!-- Open Graph for Meta Ads -->
@@ -16,14 +16,18 @@
   <meta property="og:image" content="https://secretswapvaults.vercel.app/kids/kids_tiffin_hero.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   
-  <link rel="stylesheet" href="style.css?v=3.4" />
+  <link rel="stylesheet" href="style.min.css?v=5.0" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍱</text></svg>" />
 
 
   <!-- Preconnect for performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//www.clarity.ms">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap"></noscript>
   
   <!-- Meta Pixel Code -->
   <script>
@@ -238,7 +242,7 @@
 
         <div class="hero-media">
           <div class="image-wrapper">
-            <img src="kids_tiffin_hero.webp" alt="Happy Kids Healthy Tiffin Box" class="hero-img" />
+            <img loading="lazy" src="kids_tiffin_hero.webp" alt="Happy Kids Healthy Tiffin Box" class="hero-img" />
             <div class="floating-badge">
               <span class="fb-stars">★★★★★</span>
               <span class="fb-text">"100% Risk-Free Tryout!"</span>
@@ -328,7 +332,7 @@
     <div class="container narrow">
       <div class="story-card">
         <div class="story-header" style="align-items: center;">
-          <img src="priya_portrait.png" alt="Priya - Creator of Happy Tiffin" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-right: 15px;" />
+          <img loading="lazy" src="priya_portrait.png" alt="Priya - Creator of Happy Tiffin" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-right: 15px;" />
           <div>
             <h3>Meet Priya — The Mom Behind The Tricks</h3>
             <p class="story-meta">Founder of The Happy Tiffin System</p>
@@ -468,7 +472,7 @@
 
       <div class="gallery-showcase">
         <div class="gallery-image-box">
-          <img src="kids_recipe_preview.webp" alt="Kids Healthy Recipe Preview" class="gallery-img" />
+          <img loading="lazy" src="kids_recipe_preview.webp" alt="Kids Healthy Recipe Preview" class="gallery-img" />
           <div class="gallery-label">📸 Real Recipe Preview: Smiley Veggie Idlis & Fruit Skewers from the system</div>
         </div>
         
@@ -1324,8 +1328,8 @@
 </div>
 
 <!-- GSAP and ScrollTrigger CDNs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
 <script>
   // 2026 Funnel Superpower: Interactive Picky Eating Calculator Math Logic
