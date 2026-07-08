@@ -611,11 +611,12 @@
 
   <script src="checkout_helper.js" defer></script>
   <script>
-    // Meta Pixel click track & Cashfree Checkout
     var upsellBtn = document.getElementById('upsellCTA');
     if (upsellBtn) {
       upsellBtn.addEventListener('click', function(e) {
         e.preventDefault();
+        
+        var baseLink = "https://superprofile.bio/vp/🚀-the-advanced-kids-nutrition-masterplan-5-specialized-guides---4-bonuses-";
         
         // Track Pixel
         if (typeof fbq === 'function') {
@@ -626,9 +627,9 @@
           });
         }
         
-        // Trigger Cashfree
+        // Retrieve prefill lead info
         const savedLead = localStorage.getItem('funnel_lead');
-        let lead = { name: 'Guest Customer', email: 'customer@example.com', phone: '9999999999' };
+        let lead = null;
         if (savedLead) {
           try {
             lead = JSON.parse(savedLead);
@@ -637,16 +638,29 @@
           }
         }
         
-        if (typeof window.processCashfreeCheckout === 'function') {
-          window.processCashfreeCheckout(lead.name, lead.email, lead.phone, 999, 'thankyou-vip.html');
-        } else {
-          setTimeout(function() {
-            if (typeof window.processCashfreeCheckout === 'function') {
-              window.processCashfreeCheckout(lead.name, lead.email, lead.phone, 999, 'thankyou-vip.html');
-            } else {
-              alert("Payment helper could not load. Please refresh the page.");
+        try {
+          var urlObj = new URL(baseLink);
+          urlObj.searchParams.set('checkout', 'true');
+          if (lead) {
+            if (lead.name) urlObj.searchParams.set('name', lead.name);
+            if (lead.email) urlObj.searchParams.set('email', lead.email);
+            if (lead.phone) {
+              urlObj.searchParams.set('phone', lead.phone);
+              urlObj.searchParams.set('mobile', lead.phone);
             }
-          }, 150);
+          }
+          
+          // Forward UTM params
+          if (typeof window.getCachedUtms === 'function') {
+            var utms = window.getCachedUtms();
+            Object.keys(utms).forEach(function(k) {
+              urlObj.searchParams.set(k, utms[k]);
+            });
+          }
+          
+          window.location.href = urlObj.toString();
+        } catch(err) {
+          window.location.href = baseLink;
         }
       });
     }
