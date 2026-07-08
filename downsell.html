@@ -4,17 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Last Chance — Sirf ₹499 Mein 4 Powerful Guides</title>
-  <!-- Cashfree JS SDK v3 -->
-
   <link rel="stylesheet" href="style.min.css?v=5.0" />
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>" />
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    
   <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
   <link rel="dns-prefetch" href="//www.clarity.ms">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"></noscript>
+  
+  
+  
+  
 
   <!-- Meta Pixel Code (Consent-Gated — DPDP Act 2023 Compliant) -->
   <script>
@@ -419,27 +418,12 @@
           });
         }
         
-        // Trigger Cashfree
-        const savedLead = localStorage.getItem('funnel_lead');
-        let lead = { name: 'Guest Customer', email: 'customer@example.com', phone: '9999999999' };
-        if (savedLead) {
-          try {
-            lead = JSON.parse(savedLead);
-          } catch (err) {
-            console.error(err);
-          }
-        }
-        
-        if (typeof window.processCashfreeCheckout === 'function') {
-          window.processCashfreeCheckout(lead.name, lead.email, lead.phone, 499, 'thankyou.html');
+        // Redirect to Superprofile
+        const superprofileLink = downsellBtn.getAttribute('href') || 'https://superprofile.bio/vp/Ro2FQ3-t';
+        if (typeof window.redirectToSuperprofile === 'function') {
+          window.redirectToSuperprofile(superprofileLink);
         } else {
-          setTimeout(function() {
-            if (typeof window.processCashfreeCheckout === 'function') {
-              window.processCashfreeCheckout(lead.name, lead.email, lead.phone, 499, 'thankyou.html');
-            } else {
-              alert("Payment helper could not load. Please refresh the page.");
-            }
-          }, 150);
+          window.location.href = superprofileLink;
         }
       });
     }

@@ -68,52 +68,62 @@
     if (loader) loader.classList.remove('active');
   }
 
-  function processCashfreeCheckout(name, email, phone, amount, nextStepPath) {
-    showCheckoutLoader("Securing connection with Cashfree...");
+  // Redirects to Superprofile URL appending lead & UTM params
+  function redirectToSuperprofile(baseLink) {
+    showCheckoutLoader("Redirecting to secure checkout...");
     
-    // Dynamic return URL pointing to next page
-    const returnUrl = window.location.origin + '/' + nextStepPath + '?order_id={order_id}';
+    // Retrieve prefill lead info
+    const savedLead = localStorage.getItem('funnel_lead');
+    let lead = null;
+    if (savedLead) {
+      try {
+        lead = JSON.parse(savedLead);
+      } catch (err) {
+        console.error("Lead parse error:", err);
+      }
+    }
 
-    fetch('/api/create-order', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, email, phone, amount, returnUrl })
-    })
-    .then(res => {
-      if (!res.ok) {
-        return res.json().then(err => { throw new Error(err.error || 'Gateway error') });
-      }
-      return res.json();
-    })
-    .then(data => {
-      hideCheckoutLoader();
-      
-      if (typeof Cashfree !== 'function') {
-        alert("Payment gateway loading failed. Please refresh the page and try again.");
-        return;
-      }
-      
-      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      const isSandboxQuery = window.location.search.includes('sandbox=true') || window.location.search.includes('test=true');
-      const cashfreeMode = (isLocal || isSandboxQuery) ? 'sandbox' : 'production';
-      
-      const cashfree = Cashfree({ mode: cashfreeMode });
-      cashfree.checkout({
-        paymentSessionId: data.payment_session_id,
-        redirectTarget: '_self'
+    // Helper to retrieve UTM params from cache
+    function getCachedUtms() {
+      const utms = {};
+      const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'fbclid', 'gclid'];
+      utmKeys.forEach(key => {
+        const val = sessionStorage.getItem(key);
+        if (val) utms[key] = val;
       });
-    })
-    .catch(err => {
-      hideCheckoutLoader();
-      console.error(err);
-      alert("Payment creation failed: " + err.message);
-    });
+      return utms;
+    }
+
+    setTimeout(() => {
+      try {
+        const urlObj = new URL(baseLink);
+        urlObj.searchParams.set('checkout', 'true');
+        
+        if (lead) {
+          if (lead.name) urlObj.searchParams.set('name', lead.name);
+          if (lead.email) urlObj.searchParams.set('email', lead.email);
+          if (lead.phone) {
+            urlObj.searchParams.set('phone', lead.phone);
+            urlObj.searchParams.set('mobile', lead.phone);
+          }
+        }
+        
+        // Forward UTM parameters
+        const utms = getCachedUtms();
+        Object.keys(utms).forEach(k => {
+          urlObj.searchParams.set(k, utms[k]);
+        });
+
+        window.location.href = urlObj.toString();
+      } catch (e) {
+        console.error("Redirect construction failed, falling back to raw link:", e);
+        window.location.href = baseLink;
+      }
+    }, 450); // Small delay for visual feedback
   }
 
   // Expose to window
-  window.processCashfreeCheckout = processCashfreeCheckout;
+  window.redirectToSuperprofile = redirectToSuperprofile;
   window.showCheckoutLoader = showCheckoutLoader;
   window.hideCheckoutLoader = hideCheckoutLoader;
 })();
