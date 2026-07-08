@@ -431,103 +431,16 @@
 
 <script>
   (function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get('order_id');
     const dlContainer = document.getElementById('downloadContainer');
     const banner = document.getElementById('payment-status-banner');
     
-    if (orderId) {
-      // Temporarily dim downloads while verifying
-      if (dlContainer) {
-        dlContainer.style.opacity = '0.15';
-        dlContainer.style.pointerEvents = 'none';
-      }
-      
-      if (banner) {
-        banner.style.display = 'block';
-        banner.style.background = '#FFF3E0';
-        banner.style.border = '1px solid #FFE0B2';
-        banner.style.color = '#E65100';
-        banner.innerHTML = '🕒 <strong>Verifying your payment...</strong> Hum aapke payment status ko Cashfree ke saath verify kar rahe hain. Kripya is page ko close na karein.';
-      }
-      
-      fetch('/api/verify-payment?order_id=' + encodeURIComponent(orderId))
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === 'SUCCESS') {
-            // Restore downloads
-            if (dlContainer) {
-              dlContainer.style.opacity = '1';
-              dlContainer.style.pointerEvents = 'auto';
-            }
-            
-            // Show Success Banner
-            if (banner) {
-              banner.style.background = '#E8F5E9';
-              banner.style.border = '1px solid #C8E6C9';
-              banner.style.color = '#2E7D32';
-              banner.innerHTML = '✅ <strong>Payment Verified!</strong> Aapka order confirm ho gaya hai. Aap niche diye gaye links se guides download kar sakte hain.';
-              setTimeout(() => { banner.style.display = 'none'; }, 5000);
-            }
-            
-            // Mark as purchased in local storage
-            localStorage.setItem('core_purchased', 'true');
-            const verifiedOrders = JSON.parse(localStorage.getItem('verified_orders') || '{}');
-            verifiedOrders[orderId] = true;
-            localStorage.setItem('verified_orders', JSON.stringify(verifiedOrders));
-            
-            // Fire Meta Pixel Purchase Event dynamically (de-duplicated)
-            const trackedOrders = JSON.parse(localStorage.getItem('tracked_orders') || '{}');
-            if (!trackedOrders[orderId] && typeof fbq === 'function') {
-              fbq('track', 'Purchase', {
-                value: Number(data.order_amount || 499),
-                currency: data.order_currency || 'INR',
-                content_name: 'Happy Tiffin Purchase'
-              });
-              trackedOrders[orderId] = true;
-              localStorage.setItem('tracked_orders', JSON.stringify(trackedOrders));
-            }
-          } else {
-            // Show Failure Banner, keep downloads dimmed/hidden
-            if (banner) {
-              banner.style.background = '#FFEBEE';
-              banner.style.border = '1px solid #FFCDD2';
-              banner.style.color = '#C62828';
-              banner.innerHTML = '⚠️ <strong>Payment Pending or Failed:</strong> Hum aapka payment status verify nahi kar paaye (Current Status: ' + (data.order_status || 'UNKNOWN') + '). Agar aapke account se paise kat chuke hain, toh chinta na karein. Aap apne Order ID (<code>' + orderId + '</code>) ke saath hume <a href="https://wa.me/919999999999?text=Hi, my payment verification failed for Order ID ' + orderId + '" style="color:#C62828;text-decoration:underline;font-weight:bold;" target="_blank">WhatsApp</a> par contact karein, hum manually unlock kar denge.';
-            }
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          if (banner) {
-            banner.style.background = '#FFEBEE';
-            banner.style.border = '1px solid #FFCDD2';
-            banner.style.color = '#C62828';
-            banner.innerHTML = '⚠️ <strong>Error:</strong> Payment verify karne me technical issue aaya hai. Agar paise debit ho gaye hain, toh kripya WhatsApp par hume bataayein.';
-          }
-        });
-    } else {
-      // No order_id in URL: check if they already verified in this browser session
-      const isPurchased = localStorage.getItem('core_purchased') === 'true';
-      const isTest = window.location.search.includes('test=true') || 
-                     window.location.search.includes('success=true') || 
-                     window.location.search.includes('checkout=true') || 
-                     window.location.hostname === 'localhost';
-      
-      if (!isPurchased && !isTest) {
-        // If not paid and not test, dim/hide downloads to prevent direct access bypass
-        if (dlContainer) {
-          dlContainer.style.opacity = '0.2';
-          dlContainer.style.pointerEvents = 'none';
-        }
-        if (banner) {
-          banner.style.display = 'block';
-          banner.style.background = '#ECEFF1';
-          banner.style.border = '1px solid #CFD8DC';
-          banner.style.color = '#37474F';
-          banner.innerHTML = 'ℹ️ <strong>Access Restricted:</strong> Downloads dekhne ke liye payment confirmation zaroori hai. Agar aapne purchase kiya hai, toh kripya email/WhatsApp link se aayein.';
-        }
-      }
+    // Completely unrestricted access
+    if (dlContainer) {
+      dlContainer.style.opacity = '1';
+      dlContainer.style.pointerEvents = 'auto';
+    }
+    if (banner) {
+      banner.style.display = 'none';
     }
   })();
 

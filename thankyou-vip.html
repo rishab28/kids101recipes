@@ -250,95 +250,16 @@
 
 <script>
   (function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get('order_id');
     const dlContainer = document.getElementById('downloadContainer');
     const banner = document.getElementById('payment-status-banner');
     
-    if (orderId) {
-      if (dlContainer) {
-        dlContainer.style.opacity = '0.15';
-        dlContainer.style.pointerEvents = 'none';
-      }
-      
-      if (banner) {
-        banner.style.display = 'block';
-        banner.style.background = '#FFF3E0';
-        banner.style.border = '1px solid #FFE0B2';
-        banner.style.color = '#E65100';
-        banner.innerHTML = '🕒 <strong>Verifying your payment...</strong> We are checking your VIP upgrade order status with Cashfree. Please do not close this page.';
-      }
-      
-      fetch('/api/verify-payment?order_id=' + encodeURIComponent(orderId))
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === 'SUCCESS') {
-            if (dlContainer) {
-              dlContainer.style.opacity = '1';
-              dlContainer.style.pointerEvents = 'auto';
-            }
-            
-            if (banner) {
-              banner.style.background = '#E8F5E9';
-              banner.style.border = '1px solid #C8E6C9';
-              banner.style.color = '#2E7D32';
-              banner.innerHTML = '✅ <strong>VIP Access Verified!</strong> Your order upgrade is confirmed. Download your guides below.';
-              setTimeout(() => { banner.style.display = 'none'; }, 5000);
-            }
-            
-            localStorage.setItem('vip_purchased', 'true');
-            const verifiedOrders = JSON.parse(localStorage.getItem('verified_orders') || '{}');
-            verifiedOrders[orderId] = true;
-            localStorage.setItem('verified_orders', JSON.stringify(verifiedOrders));
-            
-            const trackedOrders = JSON.parse(localStorage.getItem('tracked_orders') || '{}');
-            if (!trackedOrders[orderId] && typeof fbq === 'function') {
-              fbq('track', 'Purchase', {
-                value: Number(data.order_amount || 999),
-                currency: data.order_currency || 'INR',
-                content_name: 'Happy Tiffin VIP Family Bundle'
-              });
-              trackedOrders[orderId] = true;
-              localStorage.setItem('tracked_orders', JSON.stringify(trackedOrders));
-            }
-          } else {
-            if (banner) {
-              banner.style.background = '#FFEBEE';
-              banner.style.border = '1px solid #FFCDD2';
-              banner.style.color = '#C62828';
-              banner.innerHTML = '⚠️ <strong>Upgrade Verification Failed:</strong> We could not verify your payment status (Current Status: ' + (data.order_status || 'UNKNOWN') + '). If the amount was debited, please contact us on <a href="https://wa.me/919999999999?text=Hi, my payment verification failed for Order ID ' + orderId + '" style="color:#C62828;text-decoration:underline;font-weight:bold;" target="_blank">WhatsApp</a> with your Order ID (<code>' + orderId + '</code>) to manually unlock your guides.';
-            }
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          if (banner) {
-            banner.style.background = '#FFEBEE';
-            banner.style.border = '1px solid #FFCDD2';
-            banner.style.color = '#C62828';
-            banner.innerHTML = '⚠️ <strong>Error:</strong> An error occurred while verifying your upgrade status. Please contact support on WhatsApp.';
-          }
-        });
-    } else {
-      const isVip = localStorage.getItem('vip_purchased') === 'true';
-      const isTest = window.location.search.includes('test=true') || 
-                     window.location.search.includes('success=true') || 
-                     window.location.search.includes('checkout=true') || 
-                     window.location.hostname === 'localhost';
-      
-      if (!isVip && !isTest) {
-        if (dlContainer) {
-          dlContainer.style.opacity = '0.2';
-          dlContainer.style.pointerEvents = 'none';
-        }
-        if (banner) {
-          banner.style.display = 'block';
-          banner.style.background = '#ECEFF1';
-          banner.style.border = '1px solid #CFD8DC';
-          banner.style.color = '#37474F';
-          banner.innerHTML = 'ℹ️ <strong>VIP Access Restricted:</strong> Confirm payment to view these downloads. If you purchased, please use the direct WhatsApp link.';
-        }
-      }
+    // Completely open and unrestricted access
+    if (dlContainer) {
+      dlContainer.style.opacity = '1';
+      dlContainer.style.pointerEvents = 'auto';
+    }
+    if (banner) {
+      banner.style.display = 'none';
     }
   })();
 </script>
