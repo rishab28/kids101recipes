@@ -9,7 +9,7 @@
 
 (function() {
   // CONFIGURATION: Google Sheets webhook URL
-  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzCEwt12kadYtg6ZsNx9Dluo_NVpZdyRmfz85G9K9zZPCXmwucnRqXrRmu8jzBpEihnOw/exec";
+  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbws4uWFlZq5PikkVZZDkVvB8kPRa3Ou_ZYle9zpHVoe1V0gjGR_qNIMjGYkX7TypDdBGQ/exec";
   
   let leadModalInjected = false;
   let targetPaymentUrl = ""; // Stores checkout destination URL if clicked from a CTA
