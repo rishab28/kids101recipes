@@ -414,7 +414,7 @@ picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;
         
         // Track Pixel
         if (typeof fbq === 'function') {
-          fbq('track', 'InitiateCheckout', {
+          fbq('trackCustom', 'Button Clicked', {
             value: 499, currency: 'INR',
             content_name: 'Kids Nutrition Starter Pack Downsell'
           });
