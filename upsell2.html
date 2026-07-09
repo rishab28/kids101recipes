@@ -169,7 +169,7 @@ picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;
         <span class="save">₹3,895 ki bachat 🎉</span>
       </div>
       <p style="font-size:0.88rem;color:var(--text-muted);margin:0 0 4px;">Full pack se ₹200 kam — aur 6 most important guides sab mil rahi hain ✅</p>
-      <a href="https://superprofile.bio/vp/Ro2FQ3-t" class="btn-u2" id="upsell2CTA">
+      <a href="https://superprofile.bio/vp/Ro2FQ3-t?checkout=true" class="btn-u2" id="upsell2CTA">
         Haan! Mujhe 6 Guides Chahiye — Sirf ₹799 Mein →
       </a>
       <div class="trust-chips">
@@ -210,7 +210,7 @@ picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;
         }
         
         // Redirect to Superprofile
-        const superprofileLink = btn.getAttribute('href') || 'https://superprofile.bio/vp/Ro2FQ3-t';
+        const superprofileLink = btn.getAttribute('href') || 'https://superprofile.bio/vp/Ro2FQ3-t?checkout=true';
         if (typeof window.redirectToSuperprofile === 'function') {
           window.redirectToSuperprofile(superprofileLink);
         } else {
