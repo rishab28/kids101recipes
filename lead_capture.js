@@ -1134,8 +1134,8 @@
 
       setTimeout(function() {
         showFomoPopup();
-        setInterval(showFomoPopup, 40000); // Trigger every 40 seconds instead of 12
-      }, 12000); // Delay first popup to 12s after load
+        setInterval(showFomoPopup, 300000); // Trigger subsequent popups every 5 minutes
+      }, 60000); // Delay first popup to 1 minute after load
     });
   })();
 
