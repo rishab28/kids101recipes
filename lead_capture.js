@@ -9,7 +9,7 @@
 
 (function() {
   // CONFIGURATION: Google Sheets webhook URL
-  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxLAG9bSL8rdr-0YYwXxM61al5QP6FXURZqiuqmbHlcSHRI1dTcolrGPVfrBXxvyW5dtA/exec";
+  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzCEwt12kadYtg6ZsNx9Dluo_NVpZdyRmfz85G9K9zZPCXmwucnRqXrRmu8jzBpEihnOw/exec";
   
   let leadModalInjected = false;
   let targetPaymentUrl = ""; // Stores checkout destination URL if clicked from a CTA
@@ -197,6 +197,12 @@
     if (!url) return "";
     try {
       const urlObj = new URL(url);
+      
+      // Always append checkout=true for Superprofile links
+      if (url.includes("superprofile.bio")) {
+        urlObj.searchParams.set('checkout', 'true');
+      }
+
       const cachedUtms = getCachedUtms();
       
       // Append UTMs
@@ -606,7 +612,7 @@
             const lead = JSON.parse(savedLead);
             closeLeadModal();
             localStorage.setItem('claimed_discount', 'true');
-            redirectToSuperprofile(lead.name, lead.email, lead.phone);
+            redirectToSuperprofile(lead.name, lead.email, lead.phone, successPayBtn.getAttribute('href'));
           } else {
             document.getElementById('leadForm').style.display = 'block';
             document.getElementById('leadSuccess').style.display = 'none';
@@ -630,10 +636,10 @@
     }
   }
 
-  function redirectToSuperprofile(name, email, phone) {
-    const baseLink = "https://superprofile.bio/vp/kids-101-recipes";
+  function redirectToSuperprofile(name, email, phone, baseLink) {
+    const link = baseLink || targetPaymentUrl || "https://superprofile.bio/vp/kids-101-recipes";
     try {
-      const urlObj = new URL(baseLink);
+      const urlObj = new URL(link);
       
       // Append checkout=true
       urlObj.searchParams.set('checkout', 'true');
@@ -666,7 +672,7 @@
       
       window.location.href = urlObj.toString();
     } catch (e) {
-      window.location.href = baseLink;
+      window.location.href = link;
     }
   }
 
@@ -709,7 +715,7 @@
     if (targetPaymentUrl) {
       // CHECKOUT CTA PATH: Proceed to Superprofile checkout
       closeLeadModal();
-      redirectToSuperprofile(name, email, phone);
+      redirectToSuperprofile(name, email, phone, targetPaymentUrl);
     } else {
       // EXIT INTENT PATH: Show success downloads page
       document.getElementById('leadForm').style.display = 'none';
