@@ -1217,10 +1217,12 @@ picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;
 
       // Meta Pixel click tracking
       var ctaButtons = document.querySelectorAll('a[href*="superprofile.bio"]');
-      ctaButtons.forEach(function (btn) {
+      ctaButtons.forEach(function (btn, index) {
         btn.addEventListener('click', function () {
           if (typeof fbq === 'function') {
             fbq('trackCustom', 'Button Clicked', {
+              page: 'Index English',
+              button_number: index + 1,
               value: 499,
               currency: 'INR',
               content_name: 'Happy Tiffin Bundle - English'
