@@ -252,7 +252,7 @@
     let giftTitle = "🎁 WAIT! Get 3 Free Recipes + 1 Calendar + 50% OFF!";
     let giftSubtitle = "Fill this form to get 50% OFF (₹249 instead of ₹499) + your free gifts sent instantly!";
     let discountCode = isKidsPage ? "KIDS50" : "KHADU50";
-    let paymentLink = isKidsPage ? "https://superprofile.bio/vp/FUIMWaYB?discountCode=KIDS50" : "https://superprofile.bio/vp/FUIMWaYB?discountCode=KHADU50";
+    let paymentLink = isKidsPage ? "https://superprofile.bio/vp/kids-101-recipes?discountCode=KIDS50" : "https://superprofile.bio/vp/kids-101-recipes?discountCode=KHADU50";
     let gift1Name = isKidsPage ? "📥 Download 3 Free Recipes (PDF)" : "📥 Download 7 Herbal Drinks & Kadha Recipes (PDF)";
     let gift1Path = isKidsPage ? "deliverables/Five_Minute_Breakfast_Guide.pdf" : "final_deliverables_pdf_excel/Herbal_Drinks_Kadha_Recipes.pdf";
     let gift2Name = isKidsPage ? "📥 Download Empty Tiffin Calendar (Excel)" : "📥 Download Smart Grocery Lists (Excel)";
