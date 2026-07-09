@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.min.css?v=5.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>" />
   
-  
-  
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//www.clarity.ms">
 
   <!-- Meta Pixel Code (Consent-Gated — DPDP Act 2023 Compliant) -->
   <script>
@@ -44,6 +46,7 @@
   /></noscript>
 
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
 picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;height:auto!important;object-fit:contain}
 
     :root { --upsell-gold: #F59E0B; --upsell-gold-light: #FEF3C7; }
@@ -391,6 +394,21 @@ picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;
       border-radius: 8px;
       min-width: 60px;
       text-align: center;
+    }
+    @media (max-width: 480px) {
+      .btn-upsell-main {
+        font-size: 1.05rem;
+        padding: 14px 18px;
+      }
+      .upsell-cta-box {
+        padding: 20px 16px;
+      }
+      .cta-price-row {
+        gap: 8px;
+      }
+      .cta-now-price {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>

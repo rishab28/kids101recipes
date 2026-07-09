@@ -45,6 +45,7 @@
   </script>
 
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
 picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;height:auto!important;object-fit:contain}
 
     .urgent-top-bar {
@@ -167,6 +168,21 @@ picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;
     .countdown-inline { display:flex; align-items:center; justify-content:center; gap:6px; margin:18px 0 8px; font-family:var(--font-heading); }
     .countdown-inline .cd-label { font-size:0.9rem; color:#C62828; font-weight:700; }
     .countdown-inline .cd-time  { background:#C62828; color:white; font-size:1.3rem; font-weight:800; padding:6px 14px; border-radius:8px; min-width:60px; text-align:center; }
+    @media (max-width: 480px) {
+      .btn-upsell-main {
+        font-size: 1.05rem;
+        padding: 14px 18px;
+      }
+      .upsell-cta-box {
+        padding: 20px 16px;
+      }
+      .cta-price-row {
+        gap: 8px;
+      }
+      .cta-now-price {
+        font-size: 2rem;
+      }
+    }
   </style>
 </head>
 <body>

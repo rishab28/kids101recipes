@@ -471,6 +471,25 @@
     });
   }
 
+  // Retrieve calculator details from localStorage to sync with Sheets webhook
+  function getCalculatorData() {
+    const savedCalc = localStorage.getItem('tiffin_calculator_data');
+    if (savedCalc) {
+      try {
+        const parsed = JSON.parse(savedCalc);
+        return {
+          kid_age: parsed.age || "",
+          tiffin_frequency: parsed.tiffin || "",
+          rejected_foods: (parsed.rejectedFoods || []).join(", "),
+          picky_score: parsed.score || ""
+        };
+      } catch (e) {
+        console.warn("Failed to parse calculator data:", e);
+      }
+    }
+    return {};
+  }
+
   // Triggered when user pauses typing: captures name + valid phone/email
   function capturePartialLead() {
     if (partialLeadSent) return;
@@ -486,6 +505,7 @@
     if (name.length >= 3 && (isPhoneValid || isEmailValid)) {
       partialLeadSent = true;
       const utmParams = getCachedUtms();
+      const calcData = getCalculatorData();
       const payload = {
         name: name,
         phone: phone,
@@ -493,7 +513,8 @@
         url: window.location.href,
         status: "PARTIAL_LEAD",
         timestamp: new Date().toISOString(),
-        ...utmParams
+        ...utmParams,
+        ...calcData
       };
       
       sendWebhook(payload);
@@ -657,6 +678,7 @@
     const email = document.getElementById('leadEmail').value.trim();
     
     const utmParams = getCachedUtms();
+    const calcData = getCalculatorData();
     
     const payload = {
       name: name,
@@ -665,7 +687,8 @@
       url: window.location.href,
       status: "COMPLETED_LEAD",
       timestamp: new Date().toISOString(),
-      ...utmParams
+      ...utmParams,
+      ...calcData
     };
 
     // Save lead locally as fallback & for auto-prefill logic

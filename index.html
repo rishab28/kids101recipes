@@ -1399,6 +1399,27 @@ picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;
 
     const finalScore = Math.min(100, Math.max(0, baseScore));
     
+    // Save calculator details to localStorage
+    const rejectedFoods = [];
+    checkIds.forEach(id => {
+      const checkbox = document.getElementById(id);
+      if (checkbox && checkbox.checked) {
+        const labelEl = document.querySelector(`label[for="${id}"]`);
+        if (labelEl) {
+          rejectedFoods.push(labelEl.textContent.trim());
+        } else {
+          rejectedFoods.push(id);
+        }
+      }
+    });
+    localStorage.setItem('tiffin_calculator_data', JSON.stringify({
+      age: age,
+      tiffin: tiffin,
+      rejectedFoods: rejectedFoods,
+      score: finalScore,
+      timestamp: new Date().toISOString()
+    }));
+    
     // 2026 Funnel Superpower: Meta Pixel custom retargeting trigger (if initialized)
     if (typeof fbq === 'function' && window.pixelInitialized) {
       fbq('trackCustom', 'CalculatedPickyScore', {
