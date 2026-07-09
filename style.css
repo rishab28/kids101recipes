@@ -2098,3 +2098,7 @@ noscript .gsap-reveal {
 }
 
 
+
+
+/* Fix image stretching on mobile */
+picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;height:auto!important;object-fit:contain}
