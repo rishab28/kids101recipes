@@ -9,3 +9,4 @@ build/
 *.log
 external_repos/
 local_server.js
+.vercel
