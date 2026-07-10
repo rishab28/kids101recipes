@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/(.+\\.(avif|webp|png|jpg|jpeg|gif|svg|ico))",
+      "source": "/:path*.(avif|webp|png|jpg|jpeg|gif|svg|ico)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -10,16 +10,37 @@
       ]
     },
     {
-      "source": "/(gsap\\.min\\.js|ScrollTrigger\\.min\\.js|checkout_helper\\.js|lead_capture\\.js|style\\.min\\.css)",
+      "source": "/gsap.min.js",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "source": "/.+\\.html",
+      "source": "/ScrollTrigger.min.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/checkout_helper.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/lead_capture.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/style.min.css",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/:path*.html",
       "headers": [
         {
           "key": "Cache-Control",
