@@ -216,6 +216,596 @@ picture,picture img,.hero-img,.gallery-img,.mockup-img{display:block;width:100%;
           0% { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
+        @keyframes vip-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+        @keyframes vip-shake {
+          0%, 100% { transform: rotate(0deg); }
+          20% { transform: rotate(-3deg); }
+          40% { transform: rotate(3deg); }
+          60% { transform: rotate(-2deg); }
+          80% { transform: rotate(2deg); }
+        }
+        @keyframes fomo-pop {
+          0% { transform: scale(0.85); opacity: 0; }
+          60% { transform: scale(1.04); }
+          100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ── POPUP TOAST ── */
+        .vip-fomo-toast {
+          position: fixed;
+          bottom: 90px;
+          left: 16px;
+          background: #fff;
+          border: 1.5px solid rgba(255,112,32,0.25);
+          border-radius: 14px;
+          padding: 12px 16px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+          z-index: 99998;
+          max-width: 310px;
+          transform: translateX(-120%);
+          transition: transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+          font-family: var(--font-body);
+        }
+        .vip-fomo-toast.show { transform: translateX(0); }
+        .vip-fomo-toast .av {
+          width: 38px; height: 38px; border-radius: 50%;
+          background: linear-gradient(135deg,#FF7020,#FF4500);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 1.1rem; flex-shrink: 0;
+          color: white; font-weight: 800;
+        }
+        .vip-fomo-toast .txt { font-size: 0.78rem; color: #2D241E; line-height: 1.4; }
+        .vip-fomo-toast .txt strong { color: #FF7020; }
+        .vip-fomo-toast .txt .tm { font-size: 0.68rem; color: #8F8379; display: block; margin-top: 2px; }
+        @media(max-width:480px){
+          .vip-fomo-toast { bottom: 80px; left: 10px; right: 10px; max-width: calc(100% - 20px); }
+        }
+
+        /* ── STICKY BOTTOM BAR ── */
+        #vip-sticky-bar {
+          position: fixed;
+          bottom: 0; left: 0; right: 0;
+          background: linear-gradient(135deg, #1a0800 0%, #2D241E 100%);
+          border-top: 2px solid rgba(255,112,32,0.6);
+          padding: 10px 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          z-index: 99997;
+          transform: translateY(100%);
+          transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+          box-shadow: 0 -8px 30px rgba(255,112,32,0.2);
+          font-family: var(--font-body);
+        }
+        #vip-sticky-bar.show { transform: translateY(0); }
+        #vip-sticky-bar .sb-left { display: flex; flex-direction: column; }
+        #vip-sticky-bar .sb-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1px; color: #FF9060; font-weight: 800; }
+        #vip-sticky-bar .sb-price { font-size: 1.15rem; font-weight: 900; color: #fff; line-height: 1.1; }
+        #vip-sticky-bar .sb-old { font-size: 0.7rem; color: #7a7068; text-decoration: line-through; }
+        #vip-sticky-bar .sb-btn {
+          background: linear-gradient(135deg,#FF7020,#FF4500);
+          color: white; border: none; border-radius: 50px;
+          padding: 12px 20px; font-size: 0.85rem; font-weight: 900;
+          cursor: pointer; white-space: nowrap;
+          animation: vip-pulse 2s infinite;
+          box-shadow: 0 6px 20px rgba(255,112,32,0.4);
+          text-decoration: none; display: inline-block;
+          font-family: var(--font-heading);
+        }
+        #vip-sticky-bar .sb-timer { font-size: 0.7rem; color: #FF9060; font-weight: 700; text-align: center; white-space: nowrap; }
+        #vip-sticky-bar .sb-timer span { display: block; font-size: 1rem; color: #fff; font-variant-numeric: tabular-nums; font-weight: 900; }
+        @media(max-width:480px){
+          #vip-sticky-bar { padding: 8px 12px; gap: 8px; }
+          #vip-sticky-bar .sb-btn { padding: 10px 14px; font-size: 0.78rem; }
+          #vip-sticky-bar .sb-price { font-size: 1rem; }
+          #vip-sticky-bar .sb-old { display: none; }
+          #vip-sticky-bar .sb-timer { display: none; }
+        }
+
+        /* ── UPSELL CARD ── */
+        .vip-upsell-wrap {
+          background: linear-gradient(135deg, #1a0a00 0%, #2D241E 50%, #1a1000 100%);
+          border: 2px solid rgba(255, 112, 32, 0.5);
+          border-radius: 24px;
+          padding: 0;
+          margin-top: 2.5rem;
+          overflow: hidden;
+          box-shadow: 0 30px 80px rgba(255, 112, 32, 0.25), 0 0 0 1px rgba(255,255,255,0.05);
+          position: relative;
+          font-family: var(--font-body);
+          animation: fomo-pop 0.6s ease both;
+        }
+        .vip-top-ribbon {
+          background: linear-gradient(90deg, #FF7020, #FF5A00, #FF7020);
+          background-size: 200% auto;
+          animation: vip-shimmer 3s linear infinite;
+          text-align: center;
+          padding: 10px 20px;
+          font-size: 0.82rem;
+          font-weight: 800;
+          color: white;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+        }
+        .vip-body { padding: 2.5rem 1.5rem 2rem; }
+        .vip-live-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          background: rgba(255, 112, 32, 0.15);
+          border: 1px solid rgba(255, 112, 32, 0.4);
+          border-radius: 50px;
+          padding: 5px 14px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #FF9060;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 1.2rem;
+        }
+        .vip-live-dot {
+          width: 7px; height: 7px;
+          background: #FF7020;
+          border-radius: 50%;
+          animation: vip-blink 1.2s infinite;
+          display: inline-block;
+        }
+        .vip-headline {
+          font-size: 1.9rem;
+          font-weight: 900;
+          color: white;
+          line-height: 1.2;
+          margin-bottom: 0.5rem;
+          letter-spacing: -0.5px;
+        }
+        .vip-headline span { color: #FF7020; }
+        .vip-subhead {
+          font-size: 1rem;
+          color: #b0a89e;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+        /* Countdown */
+        .vip-countdown-wrap {
+          background: rgba(0,0,0,0.4);
+          border: 1px solid rgba(255, 112, 32, 0.35);
+          border-radius: 14px;
+          padding: 1rem 1.2rem;
+          margin-bottom: 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+        .vip-cd-label {
+          font-size: 0.75rem;
+          color: #FF9060;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        .vip-cd-timer { display: flex; gap: 8px; }
+        .vip-cd-box {
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 10px;
+          padding: 8px 10px;
+          min-width: 52px;
+          text-align: center;
+        }
+        .vip-cd-box .n {
+          font-size: 1.6rem;
+          font-weight: 900;
+          color: #FF7020;
+          line-height: 1.1;
+          font-variant-numeric: tabular-nums;
+          display: block;
+        }
+        .vip-cd-box .l {
+          font-size: 0.62rem;
+          color: #8a8075;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          display: block;
+        }
+        /* Buyer activity */
+        .vip-activity {
+          background: rgba(255, 112, 32, 0.08);
+          border: 1px solid rgba(255, 112, 32, 0.2);
+          border-radius: 10px;
+          padding: 10px 14px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 1.5rem;
+          font-size: 0.85rem;
+          color: #c0b8b0;
+          text-align: left;
+        }
+        .vip-activity strong { color: #FF9060; }
+        /* What you get grid */
+        .vip-what-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+          margin-bottom: 1.5rem;
+        }
+        @media (max-width: 500px) { .vip-what-grid { grid-template-columns: 1fr; } }
+        .vip-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 9px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 10px;
+          padding: 10px 12px;
+          font-size: 0.82rem;
+          color: #d0c8c0;
+          text-align: left;
+        }
+        .vip-item .em { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+        .vip-item strong { color: white; display: block; font-size: 0.84rem; margin-bottom: 1px; }
+        /* FOMO bar under grid */
+        .vip-fomo-bar {
+          background: rgba(255,112,32,0.12);
+          border: 1px dashed rgba(255,112,32,0.4);
+          border-radius: 10px;
+          padding: 10px 14px;
+          font-size: 0.82rem;
+          color: #FF9060;
+          font-weight: 700;
+          text-align: center;
+          margin-bottom: 1.4rem;
+          animation: vip-shake 3s ease infinite;
+          animation-delay: 2s;
+        }
+        /* Price block */
+        .vip-price-block {
+          background: rgba(255, 112, 32, 0.06);
+          border: 1.5px dashed rgba(255, 112, 32, 0.35);
+          border-radius: 14px;
+          padding: 1.2rem 1.4rem;
+          margin-bottom: 1.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .vip-old-price {
+          font-size: 0.9rem;
+          color: #7a7068;
+          text-decoration: line-through;
+          display: block;
+          margin-bottom: 2px;
+        }
+        .vip-new-price {
+          font-size: 2.6rem;
+          font-weight: 900;
+          color: #FF7020;
+          line-height: 1;
+          letter-spacing: -1px;
+        }
+        .vip-new-price sup { font-size: 1.2rem; vertical-align: super; }
+        .vip-savings-badge {
+          background: #4CAF50;
+          color: white;
+          font-weight: 800;
+          font-size: 0.82rem;
+          padding: 6px 14px;
+          border-radius: 50px;
+          white-space: nowrap;
+        }
+        /* CTA Button */
+        .vip-cta-btn {
+          display: block;
+          width: 100%;
+          padding: 20px;
+          background: linear-gradient(135deg, #FF7020 0%, #FF4500 100%);
+          color: white;
+          font-family: var(--font-heading);
+          font-size: 1.2rem;
+          font-weight: 900;
+          text-align: center;
+          border: none;
+          border-radius: var(--radius-full);
+          cursor: pointer;
+          text-decoration: none;
+          animation: vip-pulse 2.2s infinite;
+          box-shadow: 0 10px 30px rgba(255, 112, 32, 0.4);
+          letter-spacing: 0.3px;
+          transition: all 0.2s;
+          margin-bottom: 10px;
+        }
+        .vip-cta-btn:hover {
+          background: linear-gradient(135deg, #E35E14 0%, #CC3D00 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 16px 40px rgba(255, 112, 32, 0.55);
+          color: white;
+        }
+        .vip-trust-row {
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+          flex-wrap: wrap;
+          font-size: 0.72rem;
+          color: #6a6258;
+          font-weight: 600;
+          margin-top: 8px;
+        }
+        .vip-skip {
+          display: block;
+          text-align: center;
+          font-size: 0.75rem;
+          color: #5a5248;
+          margin-top: 12px;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+        .vip-skip:hover { color: #8a8278; }
+      </style>
+
+      <!-- ── FOMO POPUP TOAST ── -->
+      <div class="vip-fomo-toast" id="vipt">
+        <div class="av" id="vipt-av">P</div>
+        <div class="txt">
+          <strong id="vipt-name">Priya from Delhi</strong> just upgraded to VIP!
+          <span class="tm" id="vipt-time">2 minutes ago</span>
+        </div>
+      </div>
+
+      <!-- ── STICKY BOTTOM BAR ── -->
+      <div id="vip-sticky-bar">
+        <div class="sb-left">
+          <span class="sb-label">🔥 One-Time Offer</span>
+          <span class="sb-price">₹499 <span class="sb-old">₹2,499</span></span>
+        </div>
+        <div class="sb-timer">
+          Expires in
+          <span id="sb-countdown">14:59</span>
+        </div>
+        <a href="https://superprofile.bio/vp/ZKkdTPtg?checkout=true" class="sb-btn" target="_blank" rel="noopener">
+          🚀 Upgrade Now →
+        </a>
+      </div>
+
+      <div class="vip-upsell-wrap" id="vip-upsell-section">
+        <!-- Top ribbon -->
+        <div class="vip-top-ribbon">🏆 ONE-TIME UPGRADE — Only For New Members · Offer Expires When Timer Hits Zero</div>
+
+        <div class="vip-body">
+          <!-- Live badge -->
+          <div class="vip-live-badge">
+            <span class="vip-live-dot"></span>
+            <span id="vip-buyers-count">47</span>&nbsp;people upgraded in the last hour
+          </div>
+
+          <!-- Headline -->
+          <h2 class="vip-headline">
+            Wait — You Just Unlocked A<br><span>One-Time VIP Offer!</span><br>25 Premium Guides for Just <span>₹499</span> 🚀
+          </h2>
+          <p class="vip-subhead">
+            You got the Core System. But moms who grabbed the <b style="color:#FF9060;">VIP Bundle</b> said —
+            <i>"Yeh toh core se 10x better hai!"</i><br>
+            ⚠️ <b style="color:#FF9060;">This price disappears when timer hits zero.</b> After this page — it goes to ₹2,499 forever.
+          </p>
+
+          <!-- Countdown Timer -->
+          <div class="vip-countdown-wrap">
+            <div>
+              <div class="vip-cd-label">⏳ Your special price expires in:</div>
+            </div>
+            <div class="vip-cd-timer">
+              <div class="vip-cd-box"><span class="n" id="vip-min">14</span><span class="l">Min</span></div>
+              <div class="vip-cd-box"><span class="n" id="vip-sec">59</span><span class="l">Sec</span></div>
+            </div>
+          </div>
+
+          <!-- Live activity -->
+          <div class="vip-activity">
+            <span style="font-size: 1.5rem;">🔥</span>
+            <div><strong id="vip-live-name">Priya from Delhi</strong> just upgraded to VIP — <strong id="vip-live-time">2 minutes ago</strong></div>
+          </div>
+
+          <!-- What you unlock -->
+          <div style="font-size: 0.78rem; font-weight: 800; color: #FF9060; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
+            📦 25 Premium Guides You're Unlocking Right Now:
+          </div>
+          <div class="vip-what-grid">
+            <div class="vip-item"><span class="em">🍮</span><div><strong>Kids Sugar-Free Snack Vault</strong>50+ healthy snack & dessert recipes</div></div>
+            <div class="vip-item"><span class="em">🍱</span><div><strong>30-Day Picky-Eater Dinner Blueprint</strong>Hidden veggie dinners kids love</div></div>
+            <div class="vip-item"><span class="em">🥛</span><div><strong>Hidden Protein Master System</strong>Paneer, dal & stealth protein secrets</div></div>
+            <div class="vip-item"><span class="em">🤧</span><div><strong>Immunity-Boost Kitchen</strong>Soups, smoothies & kadhas (PDF)</div></div>
+            <div class="vip-item"><span class="em">🍫</span><div><strong>21-Day Sugar Detox for Kids</strong>Tantrum-free refined sugar reset</div></div>
+            <div class="vip-item"><span class="em">🛒</span><div><strong>Smart Label Reader</strong>Packaged food chemical guide</div></div>
+            <div class="vip-item"><span class="em">🌙</span><div><strong>Weekend Batch Cooking Blueprint</strong>2-hr Sunday prep saves 10+ hrs</div></div>
+            <div class="vip-item"><span class="em">🎯</span><div><strong>Growth Milestone Meal Planner</strong>Age 2–12 daily nutritional targets</div></div>
+            <div class="vip-item"><span class="em">👨‍👩‍👧</span><div><strong>Fussy-Eater Crisis Hotsheet</strong>Emergency mealtime rescue scripts</div></div>
+            <div class="vip-item"><span class="em">🛒</span><div><strong>Weekly Smart Kitchen Meal Sheets</strong>7-day plan + shopping matrix</div></div>
+            <div class="vip-item"><span class="em">📋</span><div><strong>Complete Family Health Blueprint</strong>High-protein plans for busy parents</div></div>
+            <div class="vip-item"><span class="em">👵</span><div><strong>Grandparents Wellness Guide</strong>Anti-inflammatory geriatric recipes</div></div>
+            <div class="vip-item"><span class="em">🍮</span><div><strong>No Sugar Desi Desserts</strong>Guilt-free Indian mithai recipes</div></div>
+            <div class="vip-item"><span class="em">🔍</span><div><strong>Packaging Chemical Scanner</strong>Spot hidden harmful additives</div></div>
+            <div class="vip-item"><span class="em">+ 11</span><div><strong>More guides included!</strong>Snack, immunity & bonus vault</div></div>
+          </div>
+
+          <!-- FOMO urgency bar -->
+          <div class="vip-fomo-bar">
+            ⚡ <span id="fomo-recent-count">23</span> moms grabbed this upgrade in the last 30 mins — only <span id="fomo-slots">limited</span> slots at ₹499!
+          </div>
+
+          <!-- Price -->
+          <div class="vip-price-block">
+            <div>
+              <span class="vip-old-price">Regular Price: ₹2,499</span>
+              <div class="vip-new-price"><sup>₹</sup>499 <span style="font-size:1rem; color:#b0a890; font-weight:600;">only</span></div>
+              <div style="font-size:0.78rem; color:#8a8278; margin-top:4px;">One-time payment · Instant PDF access · No subscription</div>
+            </div>
+            <div class="vip-savings-badge">🎉 Save ₹2,000 Today!</div>
+          </div>
+
+          <!-- CTA -->
+          <a href="https://superprofile.bio/vp/ZKkdTPtg?checkout=true" class="vip-cta-btn" id="vip-upgrade-btn" target="_blank" rel="noopener">
+            🚀 Yes! Add VIP Upgrade for ₹499 →
+          </a>
+          <div class="vip-trust-row">
+            <span>🔒 100% Secure Payment</span>
+            <span>📲 Instant PDF Access</span>
+            <span>✅ 30-Day Guarantee</span>
+            <span>💳 UPI / Cards Accepted</span>
+          </div>
+          <a class="vip-skip" onclick="document.getElementById('vip-upsell-section').style.display='none'; document.getElementById('vip-sticky-bar').style.display='none';">
+            No thanks, I'll skip this one-time offer and miss out on ₹2,000 savings
+          </a>
+        </div>
+      </div>
+
+      <script>
+        // ── VIP Countdown Timer (15 minutes, persisted in sessionStorage) ──
+        (function() {
+          var KEY = 'vip_cd_end';
+          var stored = sessionStorage.getItem(KEY);
+          var endTime = stored ? parseInt(stored) : Date.now() + 15 * 60 * 1000;
+          if (!stored) sessionStorage.setItem(KEY, endTime);
+          var minEl = document.getElementById('vip-min');
+          var secEl = document.getElementById('vip-sec');
+          var sbEl  = document.getElementById('sb-countdown');
+          function tick() {
+            var diff = Math.max(0, endTime - Date.now());
+            var m = Math.floor(diff / 60000);
+            var s = Math.floor((diff % 60000) / 1000);
+            var ms = String(m).padStart(2, '0');
+            var ss = String(s).padStart(2, '0');
+            if (minEl) minEl.textContent = ms;
+            if (secEl) secEl.textContent = ss;
+            if (sbEl)  sbEl.textContent  = ms + ':' + ss;
+            if (diff > 0) setTimeout(tick, 1000);
+            else {
+              // Timer expired — remove the ₹499 offer
+              var wrap = document.getElementById('vip-upsell-section');
+              var bar  = document.getElementById('vip-sticky-bar');
+              if (wrap) wrap.innerHTML = '<div style="padding:1.5rem;text-align:center;color:#8a8075;font-size:0.9rem;">⏰ This one-time offer has expired. <a href="https://superprofile.bio/vp/ZKkdTPtg?checkout=true" style="color:#FF7020;font-weight:700;">Click here</a> to check current pricing.</div>';
+              if (bar) bar.style.display = 'none';
+            }
+          }
+          tick();
+        })();
+
+        // ── Live buyer counter ──
+        (function() {
+          var count = 47 + Math.floor(Math.random() * 8);
+          var countEl = document.getElementById('vip-buyers-count');
+          if (countEl) countEl.textContent = count;
+          setInterval(function() {
+            if (Math.random() > 0.55) {
+              count += Math.floor(Math.random() * 2) + 1;
+              if (countEl) countEl.textContent = count;
+            }
+          }, 9000);
+        })();
+
+        // ── Live activity ticker (inline) ──
+        (function() {
+          var buyers = [
+            { name: "Priya from Delhi",      time: "2 min ago",   av: "P" },
+            { name: "Sunita from Mumbai",    time: "4 min ago",   av: "S" },
+            { name: "Rekha from Bangalore",  time: "just now",    av: "R" },
+            { name: "Meena from Pune",       time: "6 min ago",   av: "M" },
+            { name: "Anjali from Chennai",   time: "1 min ago",   av: "A" },
+            { name: "Kavya from Hyderabad",  time: "3 min ago",   av: "K" },
+            { name: "Deepa from Ahmedabad",  time: "just now",    av: "D" },
+            { name: "Nisha from Kolkata",    time: "5 min ago",   av: "N" },
+            { name: "Geeta from Jaipur",     time: "just now",    av: "G" },
+            { name: "Asha from Lucknow",     time: "8 min ago",   av: "A" },
+          ];
+          var idx = 0;
+          var nameEl = document.getElementById('vip-live-name');
+          var timeEl = document.getElementById('vip-live-time');
+          setInterval(function() {
+            idx = (idx + 1) % buyers.length;
+            if (nameEl) nameEl.textContent = buyers[idx].name;
+            if (timeEl) timeEl.textContent = buyers[idx].time;
+          }, 5000);
+        })();
+
+        // ── FOMO count updater ──
+        (function() {
+          var cnt = 23 + Math.floor(Math.random() * 5);
+          var el  = document.getElementById('fomo-recent-count');
+          if (el) el.textContent = cnt;
+          setInterval(function() {
+            if (Math.random() > 0.6) { cnt += Math.floor(Math.random() * 2) + 1; if (el) el.textContent = cnt; }
+          }, 14000);
+        })();
+
+        // ── Popup FOMO toast ──
+        (function() {
+          var buyers = [
+            { name: "Priya from Delhi",     av: "P", time: "just now" },
+            { name: "Sunita from Mumbai",   av: "S", time: "1 min ago" },
+            { name: "Rekha from Bangalore", av: "R", time: "just now" },
+            { name: "Meena from Pune",      av: "M", time: "2 min ago" },
+            { name: "Anjali from Chennai",  av: "A", time: "just now" },
+            { name: "Kavya from Hyderabad", av: "K", time: "1 min ago" },
+            { name: "Deepa from Ahmedabad", av: "D", time: "just now" },
+            { name: "Nisha from Kolkata",   av: "N", time: "3 min ago" },
+            { name: "Geeta from Jaipur",    av: "G", time: "just now" },
+            { name: "Asha from Lucknow",    av: "A", time: "2 min ago" },
+          ];
+          var toast   = document.getElementById('vipt');
+          var avEl    = document.getElementById('vipt-av');
+          var nameEl2 = document.getElementById('vipt-name');
+          var timeEl2 = document.getElementById('vipt-time');
+          var idx = 0;
+          function showToast() {
+            if (!toast) return;
+            var b = buyers[idx++ % buyers.length];
+            if (avEl)    avEl.textContent    = b.av;
+            if (nameEl2) nameEl2.textContent = b.name;
+            if (timeEl2) timeEl2.textContent = b.time;
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 4500);
+          }
+          setTimeout(function() {
+            showToast();
+            setInterval(showToast, 12000);
+          }, 3000);
+        })();
+
+        // ── Sticky bottom bar (show after scrolling past upsell) ──
+        (function() {
+          var bar = document.getElementById('vip-sticky-bar');
+          var sec = document.getElementById('vip-upsell-section');
+          if (!bar || !sec) return;
+          function onScroll() {
+            var rect = sec.getBoundingClientRect();
+            if (rect.bottom < 0) {
+              bar.classList.add('show');
+            } else {
+              bar.classList.remove('show');
+            }
+          }
+          window.addEventListener('scroll', onScroll, { passive: true });
+        })();
+      </script>
+      <style>
+        @keyframes vip-pulse {
+          0% { box-shadow: 0 0 0 0 rgba(255, 112, 32, 0.5); transform: scale(1); }
+          70% { box-shadow: 0 0 0 14px rgba(255, 112, 32, 0); transform: scale(1.02); }
+          100% { box-shadow: 0 0 0 0 rgba(255, 112, 32, 0); transform: scale(1); }
+        }
+        @keyframes vip-shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
         @keyframes vip-float {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-6px); }
